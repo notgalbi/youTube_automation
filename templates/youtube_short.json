@@ -1,0 +1,9 @@
+{
+  "title": "YouTube Short",
+  "description": "Vertical short under 60 seconds for YouTube Shorts",
+  "aspectRatio": "9:16",
+  "fps": 30,
+  "defaultSceneDuration": 180,
+  "defaultTransition": { "type": "fade", "durationInFrames": 15 },
+  "scenes": []
+}

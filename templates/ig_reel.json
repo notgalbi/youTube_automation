@@ -1,0 +1,9 @@
+{
+  "title": "Instagram Reel",
+  "description": "Vertical reel optimized for Instagram",
+  "aspectRatio": "9:16",
+  "fps": 30,
+  "defaultSceneDuration": 120,
+  "defaultTransition": { "type": "slide", "durationInFrames": 12 },
+  "scenes": []
+}

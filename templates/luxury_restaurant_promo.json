@@ -1,0 +1,16 @@
+{
+  "title": "Luxury Restaurant Promo",
+  "description": "Cinematic 16:9 promo for upscale dining",
+  "aspectRatio": "16:9",
+  "fps": 30,
+  "defaultSceneDuration": 150,
+  "defaultTransition": { "type": "fade", "durationInFrames": 20 },
+  "scenes": [
+    {
+      "textOverlays": [
+        { "id": "overlay-hero", "text": "Fine Dining\nRedefined", "x": 50, "y": 50, "fontSize": 80, "color": "#f5d78e", "startFrame": 20, "durationInFrames": 110 }
+      ],
+      "captions": []
+    }
+  ]
+}

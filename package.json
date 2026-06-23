@@ -1,0 +1,29 @@
+{
+  "name": "youtube-automation",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/editor",
+    "packages/remotion",
+    "packages/mcp-server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/editor",
+    "build": "npm run build --workspace=apps/editor",
+    "remotion:studio": "npm run studio --workspace=packages/remotion",
+    "render": "npm run render --workspace=packages/remotion",
+    "mcp:start": "npm run start --workspace=packages/mcp-server",
+    "mcp:build": "npm run build --workspace=packages/mcp-server",
+    "api": "npm run api --workspace=packages/mcp-server",
+    "api:dev": "npm run api:dev --workspace=packages/mcp-server",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.21.5": true,
+    "fsevents@2.3.3": true
+  }
+}

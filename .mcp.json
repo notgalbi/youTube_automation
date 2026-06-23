@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "remotion-editor-mcp": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "/Users/estheran/youTube_automation/packages/mcp-server/src/index.ts"
+      ],
+      "env": {}
+    }
+  }
+}

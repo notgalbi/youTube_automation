@@ -1,0 +1,9 @@
+{
+  "title": "Social Ad",
+  "description": "Square format ad for social media feeds",
+  "aspectRatio": "1:1",
+  "fps": 30,
+  "defaultSceneDuration": 90,
+  "defaultTransition": { "type": "fade", "durationInFrames": 10 },
+  "scenes": []
+}

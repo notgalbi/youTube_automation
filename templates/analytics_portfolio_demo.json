@@ -1,0 +1,16 @@
+{
+  "title": "Analytics Portfolio Demo",
+  "description": "Professional 16:9 walkthrough for data/portfolio showcases",
+  "aspectRatio": "16:9",
+  "fps": 30,
+  "defaultSceneDuration": 200,
+  "defaultTransition": { "type": "slide", "durationInFrames": 15 },
+  "scenes": [
+    {
+      "textOverlays": [
+        { "id": "overlay-title", "text": "Data at a Glance", "x": 50, "y": 20, "fontSize": 60, "color": "#6366f1", "startFrame": 15, "durationInFrames": 90 }
+      ],
+      "captions": []
+    }
+  ]
+}

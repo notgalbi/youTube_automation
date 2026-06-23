@@ -1,0 +1,16 @@
+{
+  "title": "TikTok Caption Video",
+  "description": "Vertical video with bold captions for TikTok",
+  "aspectRatio": "9:16",
+  "fps": 30,
+  "defaultSceneDuration": 150,
+  "defaultTransition": { "type": "fade", "durationInFrames": 10 },
+  "scenes": [
+    {
+      "textOverlays": [
+        { "id": "overlay-1", "text": "Watch this!", "x": 50, "y": 15, "fontSize": 72, "color": "#ffffff", "startFrame": 0, "durationInFrames": 60 }
+      ],
+      "captions": []
+    }
+  ]
+}

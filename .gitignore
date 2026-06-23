@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.mp4
+uploads/*
+!uploads/.gitkeep
+exports/*
+!exports/.gitkeep
+timeline/*
+!timeline/.gitkeep
+.DS_Store
