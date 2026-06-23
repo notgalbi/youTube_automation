@@ -2,10 +2,10 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
-import { resolve, extname } from 'path'
-import { readdirSync, statSync, readFileSync, writeFileSync, existsSync } from 'fs'
+import { resolve } from 'path'
+import { readdirSync, statSync, writeFileSync } from 'fs'
 import Anthropic from '@anthropic-ai/sdk'
-import { renderVideo } from './tools/render_video.js'
+import { renderVideo, renderState } from './tools/render_video.js'
 import { validateTimeline } from './tools/validate_timeline.js'
 import { generateComposition } from './tools/generate_composition.js'
 import { listTemplates } from './tools/list_templates.js'
@@ -76,19 +76,25 @@ app.post('/api/preview', async (req, res) => {
   res.json({ message: result })
 })
 
-// Render
-app.post('/api/render', async (req, res) => {
+// Render progress status (poll this while rendering)
+app.get('/api/render/status', (_, res) => {
+  res.json(renderState)
+})
+
+// Render (fires async — poll /api/render/status for progress)
+app.post('/api/render', (req, res) => {
+  if (renderState.running) {
+    return res.status(409).json({ error: 'A render is already in progress' })
+  }
   const { timeline, outputFilename } = req.body
   if (timeline) {
     writeFileSync(resolve(TIMELINE_DIR, 'current.json'), JSON.stringify(timeline, null, 2))
   }
-  const result = await renderVideo(undefined, outputFilename)
-  if (result.startsWith('Error') || result.startsWith('Render failed')) {
-    return res.status(500).json({ error: result })
-  }
-  const match = result.match(/File: (.+\.mp4)/)
-  res.json({ message: result, outputFile: match?.[1] ?? 'output.mp4' })
+  // Fire-and-forget — client polls /api/render/status
+  renderVideo(undefined, outputFilename)
+  return res.json({ message: 'Render started', poll: '/api/render/status' })
 })
+
 
 // List templates
 app.get('/api/templates', async (_, res) => {

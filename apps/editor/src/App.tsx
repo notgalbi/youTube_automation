@@ -8,6 +8,7 @@ import CaptionEditor from './components/CaptionEditor'
 import ExportHistory from './components/ExportHistory'
 import ClaudeChat from './components/ClaudeChat'
 import PreviewPanel from './components/PreviewPanel'
+import RenderProgress from './components/RenderProgress'
 import { Film, History } from 'lucide-react'
 import axios from 'axios'
 
@@ -74,6 +75,7 @@ export default function App() {
   const [selectedSceneId, setSelectedSceneId] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<Tab>('editor')
   const [isRendering, setIsRendering] = useState(false)
+  const [showRenderProgress, setShowRenderProgress] = useState(false)
   const [isPreviewing, setIsPreviewing] = useState(false)
   const [showJsonEditor, setShowJsonEditor] = useState(false)
   const [jsonText, setJsonText] = useState('')
@@ -141,15 +143,12 @@ export default function App() {
       toast.error('Add at least one scene first')
       return
     }
-    setIsRendering(true)
-    const toastId = toast.loading('Rendering video... this may take a minute')
     try {
-      const res = await axios.post('/api/render', { timeline })
-      toast.success(`Exported: ${res.data.outputFile}`, { id: toastId })
+      await axios.post('/api/render', { timeline })
+      setIsRendering(true)
+      setShowRenderProgress(true)
     } catch (err: any) {
-      toast.error(err?.response?.data?.error || 'Render failed', { id: toastId })
-    } finally {
-      setIsRendering(false)
+      toast.error(err?.response?.data?.error || 'Failed to start render')
     }
   }
 
@@ -218,7 +217,7 @@ export default function App() {
             disabled={isRendering}
             className="text-xs px-3 py-1 rounded bg-green-700 hover:bg-green-600 disabled:opacity-50 font-medium"
           >
-            {isRendering ? 'Rendering...' : 'Render MP4'}
+            {isRendering ? 'Rendering...' : '⬤ Render MP4'}
           </button>
         </div>
       </header>
@@ -304,6 +303,14 @@ export default function App() {
           {/* Right panel: Claude AI chat */}
           <ClaudeChat timeline={timeline} onTimelineUpdate={setTimeline} />
         </div>
+      )}
+
+      {/* Render progress overlay */}
+      {showRenderProgress && (
+        <RenderProgress
+          onDismiss={() => { setShowRenderProgress(false); setIsRendering(false) }}
+          onComplete={file => { toast.success(`Exported: ${file}`); setIsRendering(false) }}
+        />
       )}
 
       {/* JSON editor modal */}
