@@ -7,6 +7,7 @@ import TextOverlayEditor from './components/TextOverlayEditor'
 import CaptionEditor from './components/CaptionEditor'
 import ExportHistory from './components/ExportHistory'
 import ClaudeChat from './components/ClaudeChat'
+import PreviewPanel from './components/PreviewPanel'
 import { Film, History } from 'lucide-react'
 import axios from 'axios'
 
@@ -267,12 +268,12 @@ export default function App() {
             </div>
           </aside>
 
-          {/* Center: timeline + main edit area */}
-          <main className="flex-1 flex flex-col overflow-hidden min-w-0">
+          {/* Center-left: timeline + overlay/caption editors */}
+          <main className="flex flex-col overflow-hidden min-w-0" style={{ width: 380, minWidth: 320 }}>
             <Timeline timeline={timeline} selectedSceneId={selectedSceneId} onSelectScene={setSelectedSceneId} />
 
             {selectedScene ? (
-              <div className="flex-1 overflow-y-auto p-4 grid grid-cols-2 gap-4">
+              <div className="flex-1 overflow-y-auto p-3 space-y-3">
                 <TextOverlayEditor
                   scene={selectedScene}
                   fps={timeline.fps}
@@ -290,6 +291,15 @@ export default function App() {
               </div>
             )}
           </main>
+
+          {/* Center-right: preview panel */}
+          <div className="flex-1 border-l border-editor-border overflow-hidden min-w-0">
+            <PreviewPanel
+              timeline={timeline}
+              selectedSceneId={selectedSceneId}
+              onSelectScene={setSelectedSceneId}
+            />
+          </div>
 
           {/* Right panel: Claude AI chat */}
           <ClaudeChat timeline={timeline} onTimelineUpdate={setTimeline} />
