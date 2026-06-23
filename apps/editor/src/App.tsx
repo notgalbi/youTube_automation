@@ -244,7 +244,7 @@ export default function App() {
       ) : (
         <div className="flex flex-1 overflow-hidden">
           {/* Left panel: upload + scene list */}
-          <aside className="w-60 shrink-0 border-r border-editor-border flex flex-col bg-editor-panel">
+          <aside className="w-72 shrink-0 border-r border-editor-border flex flex-col bg-editor-panel">
             <Upload onFileAdded={addScene} />
             <div className="flex-1 overflow-y-auto p-2 space-y-2">
               {timeline.scenes.length === 0 && (
@@ -261,6 +261,7 @@ export default function App() {
                   onMoveUp={() => moveScene(scene.id, -1)}
                   onMoveDown={() => moveScene(scene.id, 1)}
                   onDurationChange={d => updateScene(scene.id, { durationInFrames: d })}
+                  onTransitionChange={t => updateScene(scene.id, { transition: { ...scene.transition, type: t } })}
                 />
               ))}
             </div>
